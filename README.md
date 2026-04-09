@@ -65,7 +65,7 @@ npx @open-gitagent/gitagent validate
 
 # Run the demo against the included demo-repo
 cd demo-repo
-npx @anthropic-ai/gitclaw "Production users are getting 500 errors on the /users API endpoint. It started about 30 minutes after the last deploy."
+npx gitclaw --dir ../ "Production users are getting 500 errors on the /users API endpoint. It started about 30 minutes after the last deploy."
 ```
 
 
