@@ -1,0 +1,8 @@
+production:
+  host: db.internal.prod
+  port: 5432
+  database: app_production
+  connection_timeout_ms: 30000
+  idle_timeout_ms: 60000
+  max_connections: 20
+  query_timeout_ms: 30000
