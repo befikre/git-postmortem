@@ -6,9 +6,9 @@ author: "git-postmortem"
 license: MIT
 
 model:
-  preferred: claude-sonnet-4-6
+  preferred: google:gemini-1.5-pro
   fallback:
-    - claude-haiku-4-5-20251001
+    - google:gemini-1.5-flash
   constraints:
     temperature: 0.2
     max_tokens: 4096
