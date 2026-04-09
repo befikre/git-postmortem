@@ -8,7 +8,8 @@ license: MIT
 model:
   preferred: google:gemini-1.5-pro
   fallback:
-    - google:gemini-1.5-flash
+    - claude-sonnet-4-6
+    - claude-haiku-4-5-20251001
   constraints:
     temperature: 0.2
     max_tokens: 4096
