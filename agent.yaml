@@ -1,0 +1,31 @@
+spec_version: "0.1.0"
+name: git-postmortem
+version: 1.0.0
+description: "An incident autopilot that reads your git history and writes blameless post-mortems automatically"
+author: "git-postmortem"
+license: MIT
+
+model:
+  preferred: claude-sonnet-4-6
+  fallback:
+    - claude-haiku-4-5-20251001
+  constraints:
+    temperature: 0.2
+    max_tokens: 4096
+
+skills:
+  - git-forensics
+  - timeline-builder
+  - rca-generator
+  - action-items
+
+runtime:
+  max_turns: 20
+  timeout: 180
+
+tags:
+  - incident-response
+  - post-mortem
+  - git-native
+  - devops
+  - blameless

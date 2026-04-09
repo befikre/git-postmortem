@@ -1,0 +1,4 @@
+.gitagent/
+node_modules/
+.env
+*.log

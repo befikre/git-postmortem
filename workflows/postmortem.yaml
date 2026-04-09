@@ -1,0 +1,45 @@
+name: full-postmortem
+description: "Complete incident post-mortem pipeline: forensics → timeline → RCA → action items → final report"
+version: 1.0.0
+
+inputs:
+  - name: incident_description
+    type: string
+    required: true
+    description: "Brief description of the incident and its impact"
+  - name: incident_time
+    type: string
+    required: false
+    description: "Approximate time incident started (e.g. '2 hours ago' or ISO timestamp)"
+  - name: affected_component
+    type: string
+    required: false
+    description: "Service, file, or endpoint affected"
+
+steps:
+  - id: forensics
+    action: "Run git-forensics to find the causal commit and contributing changes"
+    skill: git-forensics
+    outputs: [causal_commits, contributing_commits, detection_gap]
+
+  - id: timeline
+    action: "Build chronological incident timeline from git history and user context"
+    skill: timeline-builder
+    depends_on: [forensics]
+    outputs: [timeline, incident_duration, time_to_detect, time_to_resolve]
+
+  - id: rca
+    action: "Generate 5 Whys root cause analysis from forensics findings"
+    skill: rca-generator
+    depends_on: [forensics, timeline]
+    outputs: [root_cause, contributing_factors]
+
+  - id: actions
+    action: "Generate prioritized action items from all findings"
+    skill: action-items
+    depends_on: [rca]
+    outputs: [action_items, metrics]
+
+  - id: report
+    action: "Assemble complete post-mortem document using workflows/postmortem-template.md"
+    depends_on: [timeline, rca, actions]

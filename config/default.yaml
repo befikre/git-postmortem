@@ -1,0 +1,7 @@
+log_level: info
+blameless_mode: true
+max_report_words: 800
+five_whys_depth: 5
+action_item_min: 3
+redact_secrets: true
+track_recurring_patterns: true
