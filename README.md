@@ -115,36 +115,43 @@ git-pm "Describe your incident here"
 
 npm package: https://www.npmjs.com/package/gitpm-agent
 
-## Project structure git-postmortem/
-├── agent.yaml                          # Agent manifest (gitagent spec 0.1.0)
-├── SOUL.md                             # Agent personality and identity
-├── RULES.md                            # Hard constraints and boundaries
-├── AGENTS.md                           # Fallback instructions for other tools
-├── README.md                           # This file
-├── index.js                            # CLI entry point for npm package
-├── package.json                        # npm package configuration
+## Project structure 
+```
+git-postmortem/
+├── agent.yaml                     # Agent manifest (gitagent spec 0.1.0)
+├── SOUL.md                        # Agent personality and identity
+├── RULES.md                       # Hard constraints and boundaries
+├── AGENTS.md                      # Fallback instructions for other tools
+├── README.md                      # This file
+├── index.js                       # CLI entry point for npm package
+├── package.json                   # npm package configuration
 ├── .gitignore
 ├── skills/
-│   ├── git-forensics/SKILL.md          # Finds the causal commit
-│   ├── timeline-builder/SKILL.md       # Builds the incident timeline
-│   ├── rca-generator/SKILL.md          # 5 Whys root cause analysis
-│   └── action-items/SKILL.md           # Generates prioritized action items
+│   ├── git-forensics/
+│   │   └── SKILL.md               # Finds the causal commit
+│   ├── timeline-builder/
+│   │   └── SKILL.md               # Builds the incident timeline
+│   ├── rca-generator/
+│   │   └── SKILL.md               # 5 Whys root cause analysis
+│   └── action-items/
+│       └── SKILL.md               # Generates prioritized action items
 ├── workflows/
-│   ├── postmortem.yaml                 # Full pipeline definition
-│   └── postmortem-template.md          # Blank post-mortem template
+│   ├── postmortem.yaml            # Full pipeline definition
+│   └── postmortem-template.md    # Blank post-mortem template
 ├── memory/
-│   └── MEMORY.md                       # Cross-incident pattern tracking
+│   └── MEMORY.md                  # Cross-incident pattern tracking
 ├── config/
-│   └── default.yaml                    # Default configuration
-└── demo-repo/                          # Example repo with fake incident
-├── README.md
-├── src/
-│   ├── server.js
-│   ├── db.js
-│   ├── cache.js
-│   └── middleware.js
-└── config/
-└── database.yaml
+│   └── default.yaml               # Default configuration
+└── demo-repo/
+    ├── README.md
+    ├── src/
+    │   ├── server.js
+    │   ├── db.js
+    │   ├── cache.js
+    │   └── middleware.js
+    └── config/
+        └── database.yaml
+```
 
 ## Skills
 
