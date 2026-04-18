@@ -1,0 +1,26 @@
+{
+  "name": "gitpm-agent",
+  "version": "1.0.0",
+  "description": "AI agent that reads git history and writes blameless post-mortems automatically",
+  "main": "index.js",
+  "bin": {
+    "git-pm": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/befikre/git-postmortem.git"
+  },
+  "keywords": [
+    "git",
+    "postmortem",
+    "incident-response",
+    "devops",
+    "ai-agent",
+    "gitagent"
+  ],
+  "author": "akhilesh",
+  "license": "MIT"
+}
