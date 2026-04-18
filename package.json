@@ -1,6 +1,6 @@
 {
   "name": "gitpm-agent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AI agent that reads git history and writes blameless post-mortems automatically",
   "main": "index.js",
   "bin": {
