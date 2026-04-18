@@ -14,7 +14,6 @@ post-mortem document in seconds. Forensics, timeline, root cause analysis with
 5 Whys driven to the systemic level, and prioritized action items with owners
 and success criteria. Blameless by design.
 
-
 ## The problem it solves
 
 Post-mortems are painful because they require reconstructing what happened from
@@ -28,7 +27,6 @@ analysis past "the config was wrong" to "we have no process for validating confi
 changes against production baselines." This agent applies the 5 Whys methodology
 systematically, starting from git evidence and driving to systemic causes. Then
 it generates action items that are specific, measurable, and assigned to roles.
-
 
 ## How it works
 
@@ -52,6 +50,31 @@ Four skills run in sequence:
 The final output is a complete post-mortem document in markdown, ready to paste
 into your incident tracker.
 
+## Prerequisites
+
+Before running this agent you need three things:
+
+Node.js installed on your machine. Download from https://nodejs.org
+
+gitclaw installed globally:
+
+```bash
+npm install -g gitclaw
+```
+
+A free Google Gemini API key. Get one at https://aistudio.google.com/apikey
+
+Once you have your key, set it in your terminal before running the agent.
+
+On Windows:
+```bash
+set GEMINI_API_KEY=your_key_here
+```
+
+On Mac or Linux:
+```bash
+export GEMINI_API_KEY=your_key_here
+```
 
 ## Quick start
 
@@ -63,21 +86,43 @@ cd git-postmortem
 # Validate the agent definition
 npx @open-gitagent/gitagent validate
 
-# Run the demo against the included demo-repo
+# Set your Gemini API key (Windows)
+set GEMINI_API_KEY=your_key_here
+
+# Set your Gemini API key (Mac/Linux)
+export GEMINI_API_KEY=your_key_here
+
+# Go into the demo repo and run the agent
 cd demo-repo
-npx gitclaw --dir ../ "Production users are getting 500 errors on the /users API endpoint. It started about 30 minutes after the last deploy."
+gitclaw --dir ../ "Production incident. The /users API was returning 500 errors for 45 minutes. It started about 30 minutes after the last deploy. Generate a full post-mortem."
 ```
 
+## Install as npm package
 
-## Project structure
+You can also install git-postmortem as a global CLI tool:
 
+```bash
+npm install -g gitpm-agent
 ```
-git-postmortem/
+
+Then use it inside any git repository:
+
+```bash
+cd your-project
+set GEMINI_API_KEY=your_key_here
+git-pm "Describe your incident here"
+```
+
+npm package: https://www.npmjs.com/package/gitpm-agent
+
+## Project structure git-postmortem/
 ├── agent.yaml                          # Agent manifest (gitagent spec 0.1.0)
 ├── SOUL.md                             # Agent personality and identity
 ├── RULES.md                            # Hard constraints and boundaries
 ├── AGENTS.md                           # Fallback instructions for other tools
 ├── README.md                           # This file
+├── index.js                            # CLI entry point for npm package
+├── package.json                        # npm package configuration
 ├── .gitignore
 ├── skills/
 │   ├── git-forensics/SKILL.md          # Finds the causal commit
@@ -92,16 +137,14 @@ git-postmortem/
 ├── config/
 │   └── default.yaml                    # Default configuration
 └── demo-repo/                          # Example repo with fake incident
-    ├── README.md
-    ├── src/
-    │   ├── server.js
-    │   ├── db.js
-    │   ├── cache.js
-    │   └── middleware.js
-    └── config/
-        └── database.yaml
-```
-
+├── README.md
+├── src/
+│   ├── server.js
+│   ├── db.js
+│   ├── cache.js
+│   └── middleware.js
+└── config/
+└── database.yaml
 
 ## Skills
 
@@ -112,8 +155,18 @@ git-postmortem/
 | rca-generator | Applies 5 Whys root cause analysis from forensics findings to systemic causes |
 | action-items | Generates prioritized P0/P1/P2 action items with owners and success criteria |
 
+## Demo scenario
+
+The demo-repo folder contains a realistic production incident baked into the git
+history. A performance commit silently reduced the database connection pool timeout
+from 30 seconds to 3 seconds and dropped max connections from 20 to 5. It looked
+like an optimization. It caused 500 errors for 45 minutes before the team found
+and reverted it.
+
+Run the agent against it and watch it find the bad commit, build the timeline,
+trace the root cause through 5 Whys, and generate the action items automatically.
 
 ## Built with
 
 Built on the gitagent open standard (https://github.com/open-gitagent/gitagent)
-and runs with gitclaw (https://github.com/anthropic-ai/gitclaw).
+and runs with gitclaw. Uses Google Gemini 1.5 Pro as the AI model.

@@ -8,6 +8,10 @@ if (!prompt) {
   process.exit(1);
 }
 
+if (process.env.GEMINI_API_KEY && !process.env.GOOGLE_API_KEY) {
+  process.env.GOOGLE_API_KEY = process.env.GEMINI_API_KEY;
+}
+
 try {
   execSync(`gitclaw --dir "${__dirname}" "${prompt}"`, { stdio: 'inherit' });
 } catch (err) {
